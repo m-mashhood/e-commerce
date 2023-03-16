@@ -34,34 +34,37 @@
     <tr>
       <th>Product</th>
       <th>Category</th>
+      <th>Current Stock</th>
       <th>Purchased Amount</th>
       <th>Purchased Qty</th>
       <th>Sold Amount</th>
       <th>Sold Qty</th>
       <th>Profit</th>
-      <th>In Stock</th>
+
     </tr>
     {% for object in objects %}
     <tr>
       <td>{{object.product_name}}</td>
       <td>{{object.product_category}}</td>
+      <td>{{object.product_stock}}</td>
       <td>{{object.purchase_price}}</td>
       <td>{{object.purchase_qty}}</td>
       <td>{{object.sold_price}}</td>
       <td>{{object.sold_qty}}</td>
       <td>{{object.profit}}</td>
-      <td>{{object.product_stock}}</td>
+
     </tr>
     {% endfor %}
     <tr>
       <td>Total</td>
       <td></td>
+      <td>{{total.product_stock}}</td>
       <td>{{total.purchase_price}}</td>
       <td>{{total.purchase_qty}}</td>
       <td>{{total.sold_price}}</td>
       <td>{{total.sold_qty}}</td>
       <td>{{total.profit}}</td>
-      <td>{{total.product_stock}}</td>
+
 
     </tr>
   </table>
