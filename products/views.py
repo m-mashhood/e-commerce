@@ -104,7 +104,7 @@ class PurchaseView(LoginRequiredMixin, View):
                 Product.objects.create(
                     name=product.name,
                     category=product.category,
-                    unit=product.category,
+                    unit=product.unit,
                     picture=product.picture,
                     description=product.description,
                     in_stock=int(data['quantity']),
