@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>{{product.name}}</h2>
+  <br/><br/>
+  <div class="row">
+      <div class="col-xs-7"><p>{{product.description|linebreaks}}</p></div>
+      <div class="col-xs-5"><img src="{{product.picture.url}}"  height="300px"></div>
+  </div>
+  <p><b>Quantity:</b> {{product.in_stock}}   {{product.get_unit_display}}</p>
+  <p><b>Category:</b> {{product.get_category_display}}</p>
+  <p><b>Owned By:</b> {{product.owned_by.get_full_name}}</p>
+  <p><b>Price:</b> {{product.latest_price}}$</p><br/><br/>
+
+
+    {% if request.user.category != 'vendor' %}
+      <form method="post" action="{% url 'purchase_product' pk=product.id%}" >
+            {% csrf_token %}
+            Are you sure you want to purchase "{{ object.name }}"?
+            <input type="number" id="quantity" name="quantity" min="1" max="{{product.in_stock}}" required>
+            {{ product.get_unit_display }}
+            <br/><br/>
+            {%if request.user.category == 'retailer' %}
+                On what price you want to sell "{{ object.name }}"?
+                <input type="number" id="selling_price" name="selling_price" min="1" required>
+                <br/><br/>
+            {% endif %}
+          <input type="submit" value="Confirm">
+      </form>
+    {% endif %}
+{% endblock %}

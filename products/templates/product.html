@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Product</h2>
+  <br/>
+    {{ form.errors }}
+    {% csrf_token %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+            {% if not field.is_hidden %}
+                <div class="row">
+                    <div class="col-xs-2"> {{field.label}} </div>
+                    <div class="col-xs-6"> {{field}} </div>
+                </div>
+            {% endif %}
+            <br/>
+        {% endfor %}
+        <button type="submit">submit</button>
+    </form>
+{% endblock %}

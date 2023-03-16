@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script>
+    $(document).ready(function(){
+      $("#end").change(function() {
+        var startDate = document.getElementById("start").value;
+        var endDate = document.getElementById("end").value;
+
+        if ((Date.parse(endDate) <= Date.parse(startDate))) {
+          alert("End date should be greater than Start date");
+          document.getElementById("end").value = "";
+        }
+      });
+    });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <h2>Sales Report</h2>
+    <br/><br/>
+    <form method="post" action="{% url 'report' %}" >
+          {% csrf_token %}
+          Enter the from date:&emsp;
+          <input type="date" id="start" name="start" placeholder="dd-mm-yyyy" value="{{start}}" min="1997-01-01" max="2030-12-31">
+          &emsp;&emsp;&emsp;
+          Enter To date:&emsp;
+          <input type="date" id="end" name="end" placeholder="dd-mm-yyyy" value="{{end}}" min="1997-01-01" max="2030-12-31">
+          &emsp;&emsp;&emsp;&emsp;
+          <input type="submit" value="Confirm">
+    </form>
+    <br/><br/><br/>
+  <table style="width:100%; line-height: 25px;">
+    <tr>
+      <th>Product</th>
+      <th>Category</th>
+      <th>Purchased Amount</th>
+      <th>Purchased Qty</th>
+      <th>Sold Amount</th>
+      <th>Sold Qty</th>
+      <th>Profit</th>
+      <th>In Stock</th>
+    </tr>
+    {% for object in objects %}
+    <tr>
+      <td>{{object.product_name}}</td>
+      <td>{{object.product_category}}</td>
+      <td>{{object.purchase_price}}</td>
+      <td>{{object.purchase_qty}}</td>
+      <td>{{object.sold_price}}</td>
+      <td>{{object.sold_qty}}</td>
+      <td>{{object.profit}}</td>
+      <td>{{object.product_stock}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td>Total</td>
+      <td></td>
+      <td>{{total.purchase_price}}</td>
+      <td>{{total.purchase_qty}}</td>
+      <td>{{total.sold_price}}</td>
+      <td>{{total.sold_qty}}</td>
+      <td>{{total.profit}}</td>
+      <td>{{total.product_stock}}</td>
+
+    </tr>
+  </table>
+
+
+{% endblock %}
