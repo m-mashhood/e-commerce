@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Products Available for Purchase</h2>
+    <br/><br/><br/>
+    <div class="grid">
+        {% for product in products %}
+        <div class="grid-object">
+            <h2>{{product.name}}</h2>
+            <a class="btn btn-primary button" href="{% url 'detail_product' pk=product.id %}"><b>Buy</b></a>
+            <p><b>Category:</b> {{product.get_category_display}}</p>
+            <p><b>Available Quantity:</b> {{product.in_stock}}   {{product.get_unit_display}}</p>
+            <p><b>Owned By:</b> {{product.owned_by.get_full_name}}</p>
+            <p><b>Price:</b> {{product.latest_price}}$</p>
+            <div><img src="{{product.picture.url}}" width="100%" height="400px"></div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+        <span class="page-links">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+
+{% endblock %}

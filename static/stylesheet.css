@@ -1,0 +1,37 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 50px;
+}
+
+.grid-object {
+    width: 100%;
+}
+
+.grid-object h2{
+    text-align: center;
+}
+
+.grid-object div {
+    display: grid;
+    place-items: center;
+}
+.button {
+    float: right;
+    margin-left: 10px;
+}
