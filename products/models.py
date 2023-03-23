@@ -66,7 +66,7 @@ class Product(models.Model):
 class Sale(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='sale_set')
     buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_bought')
-    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_sold')
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='product_sold')
     created_on = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)
     purchased_quantity = models.IntegerField(null=False, blank=False)
@@ -74,4 +74,4 @@ class Sale(models.Model):
     purchase_price = models.FloatField(null=False, blank=False)
 
     def __str__(self):
-        return f'{self.product.name} {self.buyer.username} {self.seller.username}'
+        return f'{self.product.name} {self.buyer} {self.seller}'

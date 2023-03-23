@@ -54,8 +54,5 @@ class LogoutView(View):
         message = 'Logged out successfully!'
         if self.request.user.is_authenticated:
             logout(self.request)
-        return render(request, self.template_name, context={'form': form,'message': message})
+        return render(request, self.template_name, context={'form': form, 'message': message})
 
-
-def error_404_view(request, exception):
-    return redirect(LoginPageView.as_view())

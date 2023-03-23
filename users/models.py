@@ -17,3 +17,5 @@ class User(AbstractUser):
     category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default=BUYER[0])
     biography = models.TextField(null=True, blank=True)
 
+    def __str__(self):
+        return f'{self.username}'

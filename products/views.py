@@ -10,15 +10,20 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
 
 from users.models import User
 
-from .forms import ProductForm
+from .forms import ProductForm, ProductRetailerForm
 from .models import Product, Sale
 
 
 class CreateProduct(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
-    form_class = ProductForm
     success_url = reverse_lazy('list_products')
     template_name = 'product.html'
+
+    def get_form_class(self):
+        if self.request.user.category == User.RETAILER[0]:
+            return ProductRetailerForm
+        else:
+            return ProductForm
 
     def form_valid(self, form):
         form.instance.owned_by = self.request.user
